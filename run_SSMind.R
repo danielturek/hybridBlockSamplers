@@ -21,7 +21,7 @@ allSamplersTable <- rbind(allSamplersTable,
                           expand.grid(sampler = 'AFSS_to_RW_block',
                                       nfa = c(1,2,4,8)))
 ##
-modelName <- SSMind
+modelName <- 'SSMind'
 ##
 model <- get(paste0(modelName,'Model'))
 code <- get(paste0(modelName, 'Code'))
