@@ -9,6 +9,7 @@ source('data/modelData.R')
 source('AFSS_to_RW_block_sampler.R')
 ##
 ##nreps <- 1
+##nreps <- 2
 nreps <- 10
 ##
 compareDF <- data.frame(sampler = NA, nfa = NA, nIter = NA, runTime = NA, minEfficiency = NA)
@@ -27,12 +28,12 @@ allSamplersTable <- rbind(allSamplersTable,
 
 #####################################
 ## set model name here!!
-##modelName <- 'pump'
+modelName <- 'pump'
 ##modelName <- 'SSMind'
 ##modelName <- 'SSMcor'
 ##modelName <- 'ice'
 ##modelName <- 'litters'
-modelName <- 'mhp'
+##modelName <- 'mhp'
 #####################################
 
 
@@ -45,9 +46,10 @@ data <- get(paste0(modelName, 'Data'))
 propCov <- get(paste0(modelName, 'GoodPropCov'))
 goodScale <- get(paste0(modelName, 'GoodScale'))
 iterVals <- get(paste0(modelName, 'NumIters'))
+iterVals <- c(1001, 3001, 5001)   ###  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ##
 cmodel <- compileNimble(model)
-##
+
 for(samplerRowNum in 1:dim(allSamplersTable)[1]){
     samplerRow <- allSamplersTable[samplerRowNum,]
     sampler <- as.character(samplerRow$sampler)
@@ -100,7 +102,7 @@ for(samplerRowNum in 1:dim(allSamplersTable)[1]){
     if(all(is.na(compareDF[1,]))) compareDF <- compareDF[-1, ]
     if(all(is.na(allEffDF[1,])))  allEffDF <-  allEffDF[-1, ]
 }
-##
+
 filename <- paste0('results/', modelName, 'Results.RData')
 save(compareDF, allEffDF, file = filename)
 
