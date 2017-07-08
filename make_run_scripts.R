@@ -59,8 +59,8 @@ for(samplerRowNum in 1:dim(allSamplersTable)[1]){
     else if(sampler == 'AFSS_to_RW_block'){
         conf$addSampler(params, type = 'AFSS_to_RW_block', 
                         control = list(AF_sliceControl =  list(sliceWidths = 'oneVec',
-                                           factorBurnIn = 15000, factorAdaptInterval = 1000,
-                                           sliceBurnIn = 512, sliceMaxSteps = 100),
+                                           sliceAdaptFactorMaxIter = 15000, sliceAdaptFactorInterval = 1000,
+                                           sliceAdaptWidthMaxIter = 512, sliceAdaptWidthTolerance = 0.1, sliceMaxSteps = 100),
                             RWcontrol = list(propCov = diag(length(params)), scale = 1,
                                 adaptInterval = 200, adaptScaleOnly = FALSE, adaptive = TRUE),
                                        numFactorAdaptations = samplerRow$nfa))
