@@ -96,7 +96,10 @@ model building finished.
 > data <- get(paste0(modelName, 'Data'))
 > propCov <- get(paste0(modelName, 'GoodPropCov'))
 > goodScale <- get(paste0(modelName, 'GoodScale'))
-> iterVals <- get(paste0(modelName, 'NumIters'))
+> ##iterVals <- get(paste0(modelName, 'NumIters'))
+> ##
+> iterVals <- c(1000,  2000,  5000, 10000, 20000, 50000, 100000)
+> if(modelName == 'mhp')   iterVals <- c(1000, 2000, 5000, 10000)
 > ##
 > cmodel <- compileNimble(model)
 compiling... this may take a minute. Use 'showCompilerOutput = TRUE' to see C++ compiler details.
@@ -161,7 +164,15 @@ compiling... this may take a minute. Use 'showCompilerOutput = TRUE' to see C++ 
 compilation finished.
 using nIter = 1000
 rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 2000
+rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 5000
+rep: 1 2 3 4 5 6 7 8 9 10 
 using nIter = 10000
+rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 20000
+rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 50000
 rep: 1 2 3 4 5 6 7 8 9 10 
 using nIter = 1e+05
 rep: 1 2 3 4 5 6 7 8 9 10 
@@ -171,7 +182,15 @@ compiling... this may take a minute. Use 'showCompilerOutput = TRUE' to see C++ 
 compilation finished.
 using nIter = 1000
 rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 2000
+rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 5000
+rep: 1 2 3 4 5 6 7 8 9 10 
 using nIter = 10000
+rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 20000
+rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 50000
 rep: 1 2 3 4 5 6 7 8 9 10 
 using nIter = 1e+05
 rep: 1 2 3 4 5 6 7 8 9 10 
@@ -181,7 +200,15 @@ compiling... this may take a minute. Use 'showCompilerOutput = TRUE' to see C++ 
 compilation finished.
 using nIter = 1000
 rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 2000
+rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 5000
+rep: 1 2 3 4 5 6 7 8 9 10 
 using nIter = 10000
+rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 20000
+rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 50000
 rep: 1 2 3 4 5 6 7 8 9 10 
 using nIter = 1e+05
 rep: 1 2 3 4 5 6 7 8 9 10 
@@ -201,7 +228,55 @@ rep: 1 transitioning to RW_block sampler
 9 transitioning to RW_block sampler
 10 transitioning to RW_block sampler
 
+using nIter = 2000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
+using nIter = 5000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
 using nIter = 10000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
+using nIter = 20000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
+using nIter = 50000
 rep: 1 transitioning to RW_block sampler
 2 transitioning to RW_block sampler
 3 transitioning to RW_block sampler
@@ -231,7 +306,55 @@ compiling... this may take a minute. Use 'showCompilerOutput = TRUE' to see C++ 
 compilation finished.
 using nIter = 1000
 rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 2000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
+using nIter = 5000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
 using nIter = 10000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
+using nIter = 20000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
+using nIter = 50000
 rep: 1 transitioning to RW_block sampler
 2 transitioning to RW_block sampler
 3 transitioning to RW_block sampler
@@ -261,7 +384,45 @@ compiling... this may take a minute. Use 'showCompilerOutput = TRUE' to see C++ 
 compilation finished.
 using nIter = 1000
 rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 2000
+rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 5000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
 using nIter = 10000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
+using nIter = 20000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
+using nIter = 50000
 rep: 1 transitioning to RW_block sampler
 2 transitioning to RW_block sampler
 3 transitioning to RW_block sampler
@@ -291,7 +452,35 @@ compiling... this may take a minute. Use 'showCompilerOutput = TRUE' to see C++ 
 compilation finished.
 using nIter = 1000
 rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 2000
+rep: 1 2 3 4 5 6 7 8 9 10 
+using nIter = 5000
+rep: 1 2 3 4 5 6 7 8 9 10 
 using nIter = 10000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
+using nIter = 20000
+rep: 1 transitioning to RW_block sampler
+2 transitioning to RW_block sampler
+3 transitioning to RW_block sampler
+4 transitioning to RW_block sampler
+5 transitioning to RW_block sampler
+6 transitioning to RW_block sampler
+7 transitioning to RW_block sampler
+8 transitioning to RW_block sampler
+9 transitioning to RW_block sampler
+10 transitioning to RW_block sampler
+
+using nIter = 50000
 rep: 1 transitioning to RW_block sampler
 2 transitioning to RW_block sampler
 3 transitioning to RW_block sampler
@@ -322,4 +511,4 @@ rep: 1 transitioning to RW_block sampler
 > 
 > proc.time()
     user   system  elapsed 
-2600.640  169.455 2886.598 
+4586.228  394.245 5256.061 
