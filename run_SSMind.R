@@ -31,7 +31,10 @@ inits <- get(paste0(modelName,'Initial'))
 data <- get(paste0(modelName, 'Data'))
 propCov <- get(paste0(modelName, 'GoodPropCov'))
 goodScale <- get(paste0(modelName, 'GoodScale'))
-iterVals <- get(paste0(modelName, 'NumIters'))
+##iterVals <- get(paste0(modelName, 'NumIters'))
+##
+iterVals <- c(1000,  2000,  5000, 10000, 20000, 50000, 100000)
+if(modelName == 'mhp')   iterVals <- c(1000, 2000, 5000, 10000)
 ##
 cmodel <- compileNimble(model)
 ##
