@@ -1,20 +1,20 @@
-
-
-
 setwd('~/github/hybridBlockSamplers/results/')
 require(ggplot2)
 require(dplyr)
-
-
 #####################################
 ## set model name here!!
 modelName <- 'pump'
+modelName <- 'SSMind'
+modelName <- 'SSMcor'
+modelName <- 'litters'
+modelName <- 'mhp'
+modelName <- 'ice'
 #####################################
-
 
 filename <- paste0(modelName, 'Results.RData')
 load(filename)
-ls()
+
+##ls()
 
 dim(allEffDF)
 str(allEffDF)
@@ -37,11 +37,6 @@ str(compareDF)
 ## $ runTime      : num  0.025 0.024 0.024 0.023 0.025 ...
 ## $ minEfficiency: num  1185 1371 1644 1582 1159 ...
 
-compareDF %>%
-    group_by(sampler, nfa, nIter) %>%
-        summarize(mean = mean(minEfficiency), sd = sd(minEfficiency)) %>%
-            select(sampler, nfa) %>%
-                as.data.frame()
 
 compareDF %>%
     group_by(sampler, nfa, nIter) %>%
@@ -51,12 +46,10 @@ compareDF %>%
 
             
 ggplot(df, aes(x=nIter, y=mean, colour=id)) +
-    geom_line()
-
-
-    geom_errorbar(aes(ymin=len-se, ymax=len+se), width=.1) +
     geom_line() +
-    geom_point()
+        geom_point() + 
+            geom_errorbar(aes(ymin=len-se, ymax=len+se), width=.1)
+
 
 
 
@@ -66,9 +59,4 @@ ggplot(compareDF ,
 ggplot(compareDF %>% filter(nIter == 5000),
        aes(x = nIter, y = minEfficiency, color = sampler)) + geom_boxplot()
 
-
-compareDF %>%
-    filter(sampler == 'AFSS_to_RW_block') %>%
-        group_by(nfa, nIter) %>%
-            summarise(m = mean(minEfficiency), time = mean(runTime))
 
