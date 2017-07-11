@@ -43,8 +43,6 @@ compareDF %>%
         summarize(mean = mean(minEfficiency), sd = sd(minEfficiency)) %>%
             mutate(id = paste0(sampler, nfa)) -> df
 
-
-            
 ggplot(df, aes(x=nIter, y=mean, colour=id)) +
     geom_line() +
         geom_point() + 

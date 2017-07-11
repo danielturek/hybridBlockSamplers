@@ -75,6 +75,7 @@ for(samplerRowNum in 1:dim(allSamplersTable)[1]){
             mcmcTime[iter] <- system.time(cmcmc$run(nIter))[['elapsed']]
             ##browser()  ## ?????
             effValues <- coda::effectiveSize(coda::as.mcmc(as.matrix(cmcmc$mvSamples)))/(mcmcTime[iter]+.01)
+            effValues <- effValues[!(names(effValues) %in% c('alpha[1]','be[2]','bep[4]','bp[4]'))]
             effNames <- names(effValues)
             effValues <- as.numeric(effValues)
             mcmcEff[iter] <- min(effValues)

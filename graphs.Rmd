@@ -1,0 +1,82 @@
+---
+output: html_document
+---
+
+
+```{r echo = FALSE, message = FALSE}
+##setwd('~/github/hybridBlockSamplers')
+require(ggplot2)
+require(dplyr)
+models <- c('pump', 'SSMind', 'SSMcor',  'litters',  'mhp',  'ice')
+
+
+```
+
+```
+str(compareDF)
+##'data.frame':	210 obs. of  5 variables:
+## $ sampler      : chr  "RW_block" "RW_block" "RW_block" "RW_block" ...
+## $ nfa          : num  NA NA NA NA NA NA NA NA NA NA ...
+## $ nIter        : num  1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 ...
+## $ runTime      : num  0.025 0.024 0.024 0.023 0.025 ...
+## $ minEfficiency: num  1185 1371 1644 1582 1159 ...
+
+str(allEffDF)
+##'data.frame':	420 obs. of  7 variables:
+## $ sampler: chr  "RW_block" "RW_block" "RW_block" "RW_block" ...
+## $ nfa    : num  NA NA NA NA NA NA NA NA NA NA ...
+## $ nIter  : num  1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 ...
+## $ runTime: num  0.025 0.025 0.024 0.024 0.024 ...
+## $ repNum : int  1 1 2 2 3 3 4 4 5 5 ...
+## $ param  : chr  "alpha" "beta" "alpha" "beta" ...
+## $ eff    : num  1793 1185 2088 1371 2687 ...
+```
+
+
+```{r }
+
+##modelName <- 'pump'
+##modelName <- 'ice'
+par(mfrow = c(3,2))
+for(modelName in models) {
+    filename <- paste0('results/', modelName, 'Results.RData')
+    load(filename)
+    compareDF %>% filter(sampler == 'AFSS_to_RW_block') -> df
+    xlims <- if(modelName == 'mhp') c(0, 10000) else c(0, 100000)
+    plot(0, 0, ylim = c(0, max(df$minEfficiency)), xlim = xlims, main = modelName)
+    df %>% group_by(nfa, nIter) %>% summarize(mean = mean(minEfficiency)) -> tmp
+    cols <- c('gray88', 'gray50', 'gray20', 'gray5')
+    nfas <- c(1,2,4,8)
+    for(i in 1:4) {
+        tmp %>% filter(nfa == nfas[i]) -> tmp2
+        lines(tmp2$nIter, tmp2$mean, col = cols[i])
+        points(tmp2$nIter, tmp2$mean, col = cols[i], pch=19)
+    }
+    legend(x = 'topright', fill=cols, legend = nfas)
+}
+
+
+
+
+```
+
+
+
+<!--
+
+
+    compareDF %>%
+	group_by(sampler, nfa, nIter) %>%
+	    summarize(meanEff = mean(minEfficiency), sdEff = sd(minEfficiency)/10, meanTime = mean(runTime), sdTime = sd(runTime)/10) %>%
+		mutate(id = paste0(sampler, nfa)) -> df
+    print(modelName)
+    p <- ggplot(df, aes(x=nIter, y=meanEff, colour=id)) +
+        geom_errorbar(aes(ymin=meanEff-sdEff, ymax=meanEff-sdEff), position = 'dodge') + 
+            geom_line() +
+                geom_point() +
+                    labs(title = modelName)
+    dev.new()
+    print(p)
+
+-->
+
