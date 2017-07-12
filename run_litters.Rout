@@ -1,5 +1,5 @@
 
-R version 3.3.3 (2017-03-06) -- "Another Canoe"
+R version 3.4.1 (2017-06-30) -- "Single Candle"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -142,6 +142,7 @@ compilation finished.
 +             mcmcTime[iter] <- system.time(cmcmc$run(nIter))[['elapsed']]
 +             ##browser()  ## ?????
 +             effValues <- coda::effectiveSize(coda::as.mcmc(as.matrix(cmcmc$mvSamples)))/(mcmcTime[iter]+.01)
++             effValues <- effValues[!(names(effValues) %in% c('alpha[1]','be[2]','bep[4]','bp[4]'))]
 +             effNames <- names(effValues)
 +             effValues <- as.numeric(effValues)
 +             mcmcEff[iter] <- min(effValues)
@@ -511,4 +512,4 @@ rep: 1 transitioning to RW_block sampler
 > 
 > proc.time()
     user   system  elapsed 
-2527.440  346.393 3076.908 
+2157.596   16.452 2175.351 
