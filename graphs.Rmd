@@ -32,27 +32,40 @@ str(allEffDF)
 ## $ eff    : num  1793 1185 2088 1371 2687 ...
 ```
 
+## Average minEfficiency 
 
 ```{r }
 
 ##modelName <- 'pump'
 ##modelName <- 'ice'
-par(mfrow = c(3,2))
+##par(mfrow = c(3,2))
 for(modelName in models) {
     filename <- paste0('results/', modelName, 'Results.RData')
     load(filename)
+    compareDF %>% filter(nIter >= 10000) -> compareDF
     compareDF %>% filter(sampler == 'AFSS_to_RW_block') -> df
-    xlims <- if(modelName == 'mhp') c(0, 10000) else c(0, 100000)
-    plot(0, 0, ylim = c(0, max(df$minEfficiency)), xlim = xlims, main = modelName)
     df %>% group_by(nfa, nIter) %>% summarize(mean = mean(minEfficiency)) -> tmp
     cols <- c('gray88', 'gray50', 'gray20', 'gray5')
     nfas <- c(1,2,4,8)
+    xlims <- if(modelName == 'mhp') c(0, 10000) else c(0, 100000)
+    yExpand <- 1.5
+    ylims <- (range(tmp$mean) - mean(tmp$mean)) * yExpand + mean(tmp$mean)
+    plot(0, 0, ylim = ylims, xlim = xlims, main = modelName)
     for(i in 1:4) {
         tmp %>% filter(nfa == nfas[i]) -> tmp2
         lines(tmp2$nIter, tmp2$mean, col = cols[i])
         points(tmp2$nIter, tmp2$mean, col = cols[i], pch=19)
+        df %>% filter(nfa == nfas[i]) -> tmp3
+        for(iter in unique(tmp3$nIter)) {
+            se <- sd((tmp3 %>% filter(nIter == iter))$minEfficiency) / sqrt(10-1)
+            val <- (tmp2 %>% filter(nIter==iter))$mean
+            segments(iter, val-se, iter, val+se, col=cols[i])
+            width <- 1000
+            segments(iter-width, val-se, iter+width, val-se, col=cols[i])
+            segments(iter-width, val+se, iter+width, val+se, col=cols[i])
+        }
     }
-    legend(x = 'topright', fill=cols, legend = nfas)
+    legend(x = 'bottomright', fill=cols, legend = nfas)
 }
 
 
@@ -60,7 +73,43 @@ for(modelName in models) {
 
 ```
 
+## Comparing Sampling Approaches
 
+```{r }
+
+##modelName <- 'pump'
+##modelName <- 'ice'
+for(modelName in models) {
+    filename <- paste0('results/', modelName, 'Results.RData')
+    load(filename)
+    compareDF %>% filter(nIter >= 10000) -> compareDF
+    compareDF %>% filter(sampler != 'AFSS_to_RW_block' | nfa == 1) -> df
+    df %>% group_by(sampler, nIter) %>% summarize(mean = mean(minEfficiency)) -> tmp
+    cols <- c('green', 'blue', 'red', 'pink')
+    samplers <- unique(tmp$sampler)
+    xlims <- if(modelName == 'mhp') c(0, 10000) else c(0, 100000)
+    yExpand <- 1.5
+    ylims <- (range(tmp$mean) - mean(tmp$mean)) * yExpand + mean(tmp$mean)
+    plot(0, 0, ylim = ylims, xlim = xlims, main = modelName)
+    for(i in 1:4) {
+        tmp %>% filter(sampler == samplers[i]) -> tmp2
+        lines(tmp2$nIter, tmp2$mean, col = cols[i])
+        points(tmp2$nIter, tmp2$mean, col = cols[i], pch=19)
+        df %>% filter(sampler == samplers[i]) -> tmp3
+        for(iter in unique(tmp3$nIter)) {
+            se <- sd((tmp3 %>% filter(nIter == iter))$minEfficiency) / sqrt(10-1)
+            val <- (tmp2 %>% filter(nIter==iter))$mean
+            segments(iter, val-se, iter, val+se, col=cols[i])
+            width <- 1000
+            segments(iter-width, val-se, iter+width, val-se, col=cols[i])
+            segments(iter-width, val+se, iter+width, val+se, col=cols[i])
+        }
+    }
+    legend(x = 'bottomright', fill=cols, legend = samplers)
+}
+
+
+```
 
 <!--
 
